@@ -14,7 +14,7 @@ const problems = JSON.parse(fs.readFileSync(`${__dirname}/data/dev-data/spinsNow
 app.get("/", (req, res) => {
   res.status(200).json({
     message: "Your server request is working fine",
-    status: "success"
+    status: "success Here"
   });
 });
 
