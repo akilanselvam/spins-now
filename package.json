@@ -1,0 +1,14 @@
+{
+  "name": "spinsnowbackend",
+  "version": "1.0.0",
+  "description": "notNow",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "akilanSelvam",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
