@@ -1,0 +1,25 @@
+{
+  "title": "Project Title",
+  "description": "Description of the project providing details and context",
+  "goals": ["Goal 1", "Goal 2"],
+  "milestones": [
+    {
+      "title": "Milestone 1",
+      "description": "Description of Milestone 1",
+      "dueDate": "2024-04-08T12:00:00Z"
+    },
+    {
+      "title": "Milestone 2",
+      "description": "Description of Milestone 2",
+      "dueDate": "2024-04-15T12:00:00Z"
+    }
+  ],
+  "timelines": {
+    "startDate": "2024-04-01T00:00:00Z",
+    "endDate": "2024-05-01T00:00:00Z",
+    "otherDates": ["2024-04-10T00:00:00Z", "2024-04-20T00:00:00Z"]
+  },
+  "progress": "In progress",
+  "impactMeasurement": "Positive impact on society",
+  "teamMembers": ["611d2364bf6cd301f8c350d0", "611d2364bf6cd301f8c350d1"]
+}

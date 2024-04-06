@@ -1,0 +1,15 @@
+{
+  "username": "john_doe",
+  "email": "john.doe@example.com",
+  "password": "password123",
+  "firstName": "John",
+  "lastName": "Doe",
+  "phoneNumber": "1234567890",
+  "state": "California",
+  "country": "USA",
+  "age": 30,
+  "sex": "Male",
+  "skills": ["Skill 1", "Skill 2"],
+  "expertise": ["Expertise 1", "Expertise 2"],
+  "areasOfInterest": ["Interest 1", "Interest 2"]
+}

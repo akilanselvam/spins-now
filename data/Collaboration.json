@@ -1,0 +1,7 @@
+{
+  "problemId": "611d2364bf6cd301f8c350cf",
+  "users": ["611d2364bf6cd301f8c350d0", "611d2364bf6cd301f8c350d1"],
+  "workspace": "https://example.com/collaboration_workspace",
+  "discussions": ["Discussion 1", "Discussion 2"],
+  "documents": ["https://example.com/document1.pdf", "https://example.com/document2.pdf"]
+}
