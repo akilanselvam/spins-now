@@ -1,81 +1,81 @@
-const Problem = require("./../model/problemModel.js");
+const User = require("../model/userModel.js");
 
-exports.getAllProblems = async (req, res) => {
+exports.getAllUsers = async (req, res) => {
   try {
-    const problems = await Problem.find();
+    const users = await User.find();
     res.status(200).json({
       status: "success",
       requestedAT: req.requesttime,
-      results: problems.length,
+      results: users.length,
       data: {
-        problems
+        users
       }
     });
   } catch (err) {
     res.status(400).json({
       status: "Failure",
-      message: err
+      message: err.message
     });
   }
 };
 
-exports.postAllProblems = async (req, res) => {
+exports.createUser = async (req, res) => {
   try {
-    const newProblems = await Problem.create(req.body);
+    const newUser = await User.create(req.body);
     res.status(201).json({
       status: "success",
       data: {
-        problems: newProblems
+        user: newUser
       }
     });
   } catch (err) {
     res.status(400).json({
       status: "Failure",
-      message: err
+      message: err.message
     });
   }
 };
 
-exports.getSingleProblem = async (req, res) => {
+exports.getSingleUser = async (req, res) => {
   try {
-    const problem = await Problem.findById(req.params.id);
+    const user = await User.findById(req.params.id);
     res.status(200).json({
       status: "success",
       data: {
-        problem
+        user
       }
     });
   } catch (err) {
     res.status(400).json({
       status: "Failure",
-      message: err
+      message: err.message
     });
   }
 };
 
-exports.updateProblem = async (req, res) => {
+exports.updateUser = async (req, res) => {
   try {
-    const problem = await Problem.findByIdAndUpdate(req.params.id, req.body, {
+    const user = await User.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true
     });
     res.status(200).json({
       status: "Success",
       data: {
-        problem
+        user
       }
     });
   } catch (err) {
     res.status(400).json({
       status: "Failure",
-      message: err
+      message: err.message
     });
   }
 };
 
-exports.deleteProblem = async (req, res) => {
+exports.deleteUser = async (req, res) => {
   try {
-    await Problem.findByIdAndDelete(req.params.id);
+    await User.findByIdAndDelete(req.params.id);
     res.status(204).json({
       status: "Success",
       data: null
@@ -83,7 +83,7 @@ exports.deleteProblem = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: "Failure",
-      message: err
+      message: err.message
     });
   }
 };

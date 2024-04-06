@@ -1,81 +1,81 @@
-const Problem = require("./../model/problemModel.js");
+const Project = require("../model/projectModel.js");
 
-exports.getAllProblems = async (req, res) => {
+exports.getAllProjects = async (req, res) => {
   try {
-    const problems = await Problem.find();
+    const projects = await Project.find();
     res.status(200).json({
       status: "success",
       requestedAT: req.requesttime,
-      results: problems.length,
+      results: projects.length,
       data: {
-        problems
+        projects
       }
     });
   } catch (err) {
     res.status(400).json({
       status: "Failure",
-      message: err
+      message: err.message
     });
   }
 };
 
-exports.postAllProblems = async (req, res) => {
+exports.createProject = async (req, res) => {
   try {
-    const newProblems = await Problem.create(req.body);
+    const newProject = await Project.create(req.body);
     res.status(201).json({
       status: "success",
       data: {
-        problems: newProblems
+        project: newProject
       }
     });
   } catch (err) {
     res.status(400).json({
       status: "Failure",
-      message: err
+      message: err.message
     });
   }
 };
 
-exports.getSingleProblem = async (req, res) => {
+exports.getSingleProject = async (req, res) => {
   try {
-    const problem = await Problem.findById(req.params.id);
+    const project = await Project.findById(req.params.id);
     res.status(200).json({
       status: "success",
       data: {
-        problem
+        project
       }
     });
   } catch (err) {
     res.status(400).json({
       status: "Failure",
-      message: err
+      message: err.message
     });
   }
 };
 
-exports.updateProblem = async (req, res) => {
+exports.updateProject = async (req, res) => {
   try {
-    const problem = await Problem.findByIdAndUpdate(req.params.id, req.body, {
+    const project = await Project.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true
     });
     res.status(200).json({
       status: "Success",
       data: {
-        problem
+        project
       }
     });
   } catch (err) {
     res.status(400).json({
       status: "Failure",
-      message: err
+      message: err.message
     });
   }
 };
 
-exports.deleteProblem = async (req, res) => {
+exports.deleteProject = async (req, res) => {
   try {
-    await Problem.findByIdAndDelete(req.params.id);
+    await Project.findByIdAndDelete(req.params.id);
     res.status(204).json({
       status: "Success",
       data: null
@@ -83,7 +83,7 @@ exports.deleteProblem = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: "Failure",
-      message: err
+      message: err.message
     });
   }
 };

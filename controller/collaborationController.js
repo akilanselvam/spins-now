@@ -1,81 +1,81 @@
-const Problem = require("./../model/problemModel.js");
+const Collaboration = require("./../model/collaborationModel.js");
 
-exports.getAllProblems = async (req, res) => {
+exports.getAllCollaborations = async (req, res) => {
   try {
-    const problems = await Problem.find();
+    const collaborations = await Collaboration.find();
     res.status(200).json({
       status: "success",
       requestedAT: req.requesttime,
-      results: problems.length,
+      results: collaborations.length,
       data: {
-        problems
+        collaborations
       }
     });
   } catch (err) {
     res.status(400).json({
       status: "Failure",
-      message: err
+      message: err.message
     });
   }
 };
 
-exports.postAllProblems = async (req, res) => {
+exports.createCollaboration = async (req, res) => {
   try {
-    const newProblems = await Problem.create(req.body);
+    const newCollaboration = await Collaboration.create(req.body);
     res.status(201).json({
       status: "success",
       data: {
-        problems: newProblems
+        collaboration: newCollaboration
       }
     });
   } catch (err) {
     res.status(400).json({
       status: "Failure",
-      message: err
+      message: err.message
     });
   }
 };
 
-exports.getSingleProblem = async (req, res) => {
+exports.getSingleCollaboration = async (req, res) => {
   try {
-    const problem = await Problem.findById(req.params.id);
+    const collaboration = await Collaboration.findById(req.params.id);
     res.status(200).json({
       status: "success",
       data: {
-        problem
+        collaboration
       }
     });
   } catch (err) {
     res.status(400).json({
       status: "Failure",
-      message: err
+      message: err.message
     });
   }
 };
 
-exports.updateProblem = async (req, res) => {
+exports.updateCollaboration = async (req, res) => {
   try {
-    const problem = await Problem.findByIdAndUpdate(req.params.id, req.body, {
+    const collaboration = await Collaboration.findByIdAndUpdate(req.params.id, req.body, {
       new: true,
       runValidators: true
     });
     res.status(200).json({
       status: "Success",
       data: {
-        problem
+        collaboration
       }
     });
   } catch (err) {
     res.status(400).json({
       status: "Failure",
-      message: err
+      message: err.message
     });
   }
 };
 
-exports.deleteProblem = async (req, res) => {
+exports.deleteCollaboration = async (req, res) => {
   try {
-    await Problem.findByIdAndDelete(req.params.id);
+    await Collaboration.findByIdAndDelete(req.params.id);
     res.status(204).json({
       status: "Success",
       data: null
@@ -83,7 +83,7 @@ exports.deleteProblem = async (req, res) => {
   } catch (err) {
     res.status(400).json({
       status: "Failure",
-      message: err
+      message: err.message
     });
   }
 };

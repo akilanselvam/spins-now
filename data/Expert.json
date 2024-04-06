@@ -1,0 +1,11 @@
+{
+  "fullName": "John Doe",
+  "expertiseAreas": ["Area 1", "Area 2"],
+  "bio": "Biography or description of the expert, including their background, experience, and qualifications",
+  "contactDetails": {
+    "email": "john.doe@example.com",
+    "phoneNumber": "1234567890",
+    "otherInfo": "Any other relevant information"
+  },
+  "availability": "Available on weekdays from 9am to 5pm"
+}

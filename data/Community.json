@@ -1,0 +1,8 @@
+{
+  "title": "Community Event Title",
+  "description": "Description of the community event providing details and context",
+  "date": "2024-04-08T12:00:00Z",
+  "location": "Location of the community event",
+  "organizer": "Name or organization responsible for organizing the community event",
+  "attendees": ["Attendee 1", "Attendee 2"]
+}
