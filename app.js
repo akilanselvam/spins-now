@@ -16,7 +16,7 @@ app.use(morgan("dev"));
 app.use(express.static(`${__dirname}/public`));
 app.use((req, res, next) => {
   req.requesttime = new Date().toISOString();
-  console.log(req.requesttime);
+  //console.log(req.requesttime);
   next();
 });
 
