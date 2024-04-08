@@ -59,7 +59,6 @@ exports.login = catchAsync(async (req, res, next) => {
 });
 
 exports.protect = catchAsync(async (req, res, next) => {
-  // 1) Getting token and check of it's there
   let token;
   if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
     token = req.headers.authorization.split(" ")[1];
@@ -69,10 +68,8 @@ exports.protect = catchAsync(async (req, res, next) => {
     console.log("token");
     return next(new AppError("You are not logged in! Please log in to get access", 401));
   }
-  // 2) Verification token
   const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
-  console.log(decoded);
-  // 3) Check if user still exists
+
   const freshUser = await User.findById(decoded.id);
   if (!freshUser) {
     return next(new AppError("The user belonging to this token does no longer exist.", 401));
@@ -80,7 +77,6 @@ exports.protect = catchAsync(async (req, res, next) => {
   if (freshUser.changedPasswordAfter(decoded.iat)) {
     return next(new AppError("User recently changed password! Please log in again.", 401));
   }
-  // GRANT ACCESS TO PROTECTED ROUTE
   req.user = freshUser;
 
   next();
@@ -88,7 +84,6 @@ exports.protect = catchAsync(async (req, res, next) => {
 
 exports.updatePassword = catchAsync(async (req, res, next) => {
   const user = await User.findById(req.user.id).select("+password");
-  //console.log(user);
   if (!(await user.correctPassword(req.body.passwordCurrent, user.password))) {
     return next(new AppError("Your current password is wrong.", 401));
   }
