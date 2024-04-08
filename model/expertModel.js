@@ -1,6 +1,10 @@
 const mongoose = require("mongoose");
 
 const expertSchema = new mongoose.Schema({
+  userId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
   fullName: {
     type: String,
     required: true

@@ -15,7 +15,7 @@ const resourceSchema = new mongoose.Schema({
   },
   uploader: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User" // Reference to User model
+    ref: "User"
   },
   uploadDate: {
     type: Date,
@@ -24,6 +24,10 @@ const resourceSchema = new mongoose.Schema({
   file: {
     type: String,
     required: true
+  },
+  communityId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Community"
   },
   createdAt: {
     type: Date,

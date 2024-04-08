@@ -19,6 +19,14 @@ const communitySchema = new mongoose.Schema({
   },
   organizer: String,
   attendees: [String],
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
+  projectId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Project"
+  },
   createdAt: {
     type: Date,
     default: Date.now

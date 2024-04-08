@@ -23,17 +23,21 @@ const projectSchema = new mongoose.Schema({
     otherDates: [Date]
   },
   progress: {
-    type: mongoose.Schema.Types.Mixed // Can be either a string or a number
+    type: mongoose.Schema.Types.Mixed
   },
   impactMeasurement: {
-    type: mongoose.Schema.Types.Mixed // Can be either a string or an object
+    type: mongoose.Schema.Types.Mixed
   },
   teamMembers: [
     {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User" // Reference to User model
+      ref: "User"
     }
   ],
+  createdBy: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
   createdAt: {
     type: Date,
     default: Date.now

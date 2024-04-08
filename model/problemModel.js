@@ -34,8 +34,12 @@ const problemSchema = new mongoose.Schema({
     required: [true, "A Problem Must Have a Status"]
   },
   submittedBy: {
-    type: mongoose.Schema.Types.ObjectId
-    //ref: 'User'
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "User"
+  },
+  communityId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Community"
   },
   createdAt: {
     type: Date,

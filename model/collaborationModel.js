@@ -3,13 +3,13 @@ const mongoose = require("mongoose");
 const collaborationSchema = new mongoose.Schema({
   problemId: {
     type: mongoose.Schema.Types.ObjectId,
-    required: true,
-    unique: true
+    ref: "Problem",
+    required: true
   },
   users: [
     {
-      type: mongoose.Schema.Types.ObjectId
-      //   ref: "User"
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "User"
     }
   ],
   workspace: {

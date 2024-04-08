@@ -1,10 +1,10 @@
 const express = require("express");
 const communitiesRouter = express.Router();
 const communityController = require("../controller/communityController.js");
-
+const authController = require("../controller/authController.js");
 communitiesRouter
   .route("/:id")
-  .get(communityController.getSingleCommunity)
+  .get(authController.protect, communityController.getSingleCommunity)
   .patch(communityController.updateCommunity)
   .delete(communityController.deleteCommunity);
 
