@@ -1,4 +1,6 @@
 const Collaboration = require("./../model/collaborationModel.js");
+const Problem = require("./../model/problemModel.js");
+const mongoose = require("mongoose");
 
 exports.getAllCollaborations = async (req, res) => {
   try {
@@ -21,6 +23,29 @@ exports.getAllCollaborations = async (req, res) => {
 
 exports.createCollaboration = async (req, res) => {
   try {
+    if (!req.body.problemId) {
+      return res.status(400).json({
+        status: "Failure",
+        message: "Problem ID is required for creating a collaboration."
+      });
+    }
+
+    if (!mongoose.Types.ObjectId.isValid(req.body.problemId)) {
+      return res.status(400).json({
+        status: "Failure",
+        message: "Invalid Problem ID format."
+      });
+    }
+
+    const existingProblem = await Problem.findById(req.body.problemId);
+    console.log(req.body.problemId);
+    if (!existingProblem) {
+      return res.status(404).json({
+        status: "Failure",
+        message: "Problem not found."
+      });
+    }
+
     const newCollaboration = await Collaboration.create(req.body);
     res.status(201).json({
       status: "success",
