@@ -11,6 +11,9 @@ const projectRouter = require("./routes/projectRouter.js");
 const resourceRouter = require("./routes/resourceRouter.js");
 const userRouter = require("./routes/userRouter.js");
 const globalErrorHandler = require("./util/errorController.js");
+var cors = require("cors");
+
+app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 app.use(express.static(`${__dirname}/public`));
