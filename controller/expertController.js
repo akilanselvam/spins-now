@@ -1,4 +1,5 @@
 const Expert = require("../model/expertModel.js");
+const User = require("../model/userModel.js");
 
 exports.getAllExperts = async (req, res) => {
   try {
@@ -21,7 +22,36 @@ exports.getAllExperts = async (req, res) => {
 
 exports.createExpert = async (req, res) => {
   try {
-    const newExpert = await Expert.create(req.body);
+    const userData = await User.findById(req.body.userId);
+    if (!userData) {
+      return res.status(404).json({
+        status: "Failure",
+        message: "User not found"
+      });
+    }
+    const existingExpert = await Expert.findOne({ userId: req.body.userId });
+    if (existingExpert) {
+      return res.status(409).json({
+        status: "Failure",
+        message: "User already exists as an expert"
+      });
+    }
+    const fullName = `${userData.firstName} ${userData.lastName}`;
+    const expertData = {
+      userId: req.body.userId,
+      fullName: fullName,
+      expertiseAreas: req.body.expertiseAreas,
+      availability: req.body.availability,
+      bio: null,
+      contactDetails: {
+        email: userData.email,
+        phoneNumber: userData.phoneNumber,
+        otherInfo: null
+      }
+    };
+
+    const newExpert = await Expert.create(expertData);
+
     res.status(201).json({
       status: "success",
       data: {

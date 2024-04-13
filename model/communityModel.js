@@ -17,8 +17,10 @@ const communitySchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  organizer: String,
-  attendees: [String],
+  neededExpertise: {
+    type: String,
+    required: true
+  },
   createdBy: {
     type: mongoose.Schema.Types.ObjectId,
     ref: "User"

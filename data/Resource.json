@@ -1,8 +1,9 @@
 {
   "title": "Resource Title",
-  "description": "Description of the resource providing details and context",
-  "category": "Category of the resource",
-  "uploader": "66118fb1ac5b104e7c47fc31",
-  "uploadDate": "2024-04-08T12:00:00Z",
-  "file": "https://example.com/resource_file.pdf"
+  "description": "Resource Description",
+  "category": "Resource Category",
+  "uploader": "abcdef012345678901234567",
+  "uploadDate": "2024-04-13T12:00:00.000Z",
+  "file": "Resource File Path",
+  "communityId": "6123456789abcdef01234569"
 }

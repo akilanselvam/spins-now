@@ -1,7 +1,7 @@
 {
-  "problemId": "66112f8d0eb4181a34926089",
-  "users": ["66118fb1ac5b104e7c47fc31"],
-  "workspace": "https://example.com/collaboration_workspace",
+  "problemId": "6123456789abcdef01234567",
+  "users": ["abcdef012345678901234567", "abcdef012345678901234568"],
+  "workspace": "Collaboration Workspace",
   "discussions": ["Discussion 1", "Discussion 2"],
-  "documents": ["https://example.com/document1.pdf", "https://example.com/document2.pdf"]
+  "documents": ["Document 1", "Document 2"]
 }

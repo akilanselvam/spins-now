@@ -52,6 +52,11 @@ const userSchema = new mongoose.Schema({
   passwordChangedAt: {
     type: Date,
     select: true
+  },
+  expert: {
+    type: String,
+    enum: ["yes", "no"],
+    default: "no"
   }
 });
 

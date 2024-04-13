@@ -3,7 +3,8 @@ const mongoose = require("mongoose");
 const expertSchema = new mongoose.Schema({
   userId: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: "User"
+    ref: "User",
+    unique: true
   },
   fullName: {
     type: String,
@@ -16,8 +17,7 @@ const expertSchema = new mongoose.Schema({
     }
   ],
   bio: {
-    type: String,
-    required: true
+    type: String
   },
   contactDetails: {
     email: {

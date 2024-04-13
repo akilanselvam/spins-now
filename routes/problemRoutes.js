@@ -2,6 +2,8 @@ const express = require("express");
 const problemsRouter = express.Router();
 const problemController = require("../controller/problemController.js");
 
+problemsRouter.route("/latestTen").get(problemController.getLatestTenProblem);
+
 problemsRouter
   .route("/:id")
   .get(problemController.getSingleProblem)
