@@ -1,11 +1,10 @@
 {
-  "problemId": 53469,
-  "title": "Problem 557",
-  "description": "This is a randomly generated description for problem 557",
-  "category": "humanitarian",
-  "urgency": "high",
+  "communityId": "6123456789abcdef01234569",
+  "title": "Problem Title",
+  "description": "Problem Description",
+  "category": "Problem Category",
+  "urgency": "medium",
   "impactPotential": "high",
-  "status": "solved",
-  "submittedBy": null,
-  "createdAt": "2024-04-03T22:33:42.000Z"
+  "status": "pending",
+  "submittedBy": "abcdef012345678901234567"
 }

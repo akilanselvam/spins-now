@@ -1,10 +1,9 @@
 const mongoose = require("mongoose");
 
 const problemSchema = new mongoose.Schema({
-  problemId: {
-    type: Number,
-    required: true,
-    unique: true
+  communityId: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "Community"
   },
   title: {
     type: String,

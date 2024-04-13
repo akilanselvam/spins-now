@@ -37,6 +37,26 @@ exports.postAllProblems = async (req, res) => {
   }
 };
 
+exports.getLatestTenProblem = async (req, res) => {
+  try {
+    const problems = await Problem.find()
+      .sort({ createdAt: -1 })
+      .limit(10)
+      .select("title description category urgency impactPotential status submittedBy createdAt");
+    res.status(200).json({
+      status: "success",
+      data: {
+        problems
+      }
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Failure",
+      message: err.message
+    });
+  }
+};
+
 exports.getSingleProblem = async (req, res) => {
   try {
     const problem = await Problem.findById(req.params.id);
