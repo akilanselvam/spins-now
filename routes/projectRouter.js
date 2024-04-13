@@ -2,6 +2,8 @@ const express = require("express");
 const projectsRouter = express.Router();
 const projectController = require("../controller/projectController.js");
 
+projectsRouter.route("/LatestTenProject").get(projectController.getLatestTenProject);
+
 projectsRouter
   .route("/:id")
   .get(projectController.getSingleProject)
