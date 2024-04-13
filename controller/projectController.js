@@ -53,6 +53,24 @@ exports.getSingleProject = async (req, res) => {
   }
 };
 
+exports.getLatestTenProject = async (req, res) => {
+  try {
+    const project = await Project.find().sort({ createdAt: -1 }).limit(10);
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        project
+      }
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Failure",
+      message: err.message
+    });
+  }
+};
+
 exports.updateProject = async (req, res) => {
   try {
     const project = await Project.findByIdAndUpdate(req.params.id, req.body, {
