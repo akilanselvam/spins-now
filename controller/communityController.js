@@ -53,6 +53,24 @@ exports.getSingleCommunity = async (req, res) => {
   }
 };
 
+exports.getLatestTenCommunity = async (req, res) => {
+  try {
+    const community = await Community.find().sort({ createdAt: -1 }).limit(10);
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        community
+      }
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Failure",
+      message: err.message
+    });
+  }
+};
+
 exports.updateCommunity = async (req, res) => {
   try {
     const community = await Community.findByIdAndUpdate(req.params.id, req.body, {

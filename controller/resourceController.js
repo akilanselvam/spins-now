@@ -36,6 +36,24 @@ exports.createResource = async (req, res) => {
   }
 };
 
+exports.getLatestTenResource = async (req, res) => {
+  try {
+    const resource = await Resource.find().sort({ createdAt: -1 }).limit(10);
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        resource
+      }
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Failure",
+      message: err.message
+    });
+  }
+};
+
 exports.getSingleResource = async (req, res) => {
   try {
     const resource = await Resource.findById(req.params.id);
