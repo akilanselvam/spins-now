@@ -2,6 +2,8 @@ const express = require("express");
 const expertsRouter = express.Router();
 const expertController = require("../controller/expertController.js");
 
+expertsRouter.route("/latestTen").get(expertController.getLatestTenExpert);
+
 expertsRouter
   .route("/:id")
   .get(expertController.getSingleExpert)

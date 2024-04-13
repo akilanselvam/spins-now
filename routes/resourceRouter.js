@@ -2,6 +2,8 @@ const express = require("express");
 const resourcesRouter = express.Router();
 const resourceController = require("../controller/resourceController.js");
 
+resourcesRouter.route("/latestTen").get(resourceController.getLatestTenResource);
+
 resourcesRouter
   .route("/:id")
   .get(resourceController.getSingleResource)

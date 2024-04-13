@@ -66,6 +66,24 @@ exports.createExpert = async (req, res) => {
   }
 };
 
+exports.getLatestTenExpert = async (req, res) => {
+  try {
+    const expert = await Expert.find().sort({ createdAt: -1 }).limit(10);
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        expert
+      }
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Failure",
+      message: err.message
+    });
+  }
+};
+
 exports.getSingleExpert = async (req, res) => {
   try {
     const expert = await Expert.findById(req.params.id);

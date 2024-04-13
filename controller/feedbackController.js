@@ -36,6 +36,24 @@ exports.createFeedback = async (req, res) => {
   }
 };
 
+exports.getLatestTenFeedback = async (req, res) => {
+  try {
+    const feedback = await Feedback.find().sort({ createdAt: -1 }).limit(10);
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        feedback
+      }
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Failure",
+      message: err.message
+    });
+  }
+};
+
 exports.getSingleFeedback = async (req, res) => {
   try {
     const feedback = await Feedback.findById(req.params.id);

@@ -2,6 +2,8 @@ const express = require("express");
 const communitiesRouter = express.Router();
 const communityController = require("../controller/communityController.js");
 const authController = require("../controller/authController.js");
+
+communitiesRouter.route("/latestTen").get(communityController.getLatestTenCommunity);
 communitiesRouter
   .route("/:id")
   .get(authController.protect, communityController.getSingleCommunity)

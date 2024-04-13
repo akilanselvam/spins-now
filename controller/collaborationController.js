@@ -78,6 +78,24 @@ exports.getSingleCollaboration = async (req, res) => {
   }
 };
 
+exports.getLatestTenCollaboration = async (req, res) => {
+  try {
+    const collaboration = await Collaboration.find().sort({ createdAt: -1 }).limit(10);
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        collaboration
+      }
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Failure",
+      message: err.message
+    });
+  }
+};
+
 exports.updateCollaboration = async (req, res) => {
   try {
     const collaboration = await Collaboration.findByIdAndUpdate(req.params.id, req.body, {
