@@ -53,6 +53,29 @@ exports.getSingleCommunity = async (req, res) => {
   }
 };
 
+exports.getCommunityByProjectId = async (req, res) => {
+  try {
+    const community = await Community.find({ projectId: req.params.projectId });
+    if (!community) {
+      return res.status(404).json({
+        status: "failure",
+        message: "Community not found for the given project ID"
+      });
+    }
+    res.status(200).json({
+      status: "success",
+      data: {
+        community
+      }
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "failure",
+      message: err.message
+    });
+  }
+};
+
 exports.getLatestTenCommunity = async (req, res) => {
   try {
     const community = await Community.find().sort({ createdAt: -1 }).limit(10);
