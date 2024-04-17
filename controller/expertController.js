@@ -51,6 +51,7 @@ exports.createExpert = async (req, res) => {
     };
 
     const newExpert = await Expert.create(expertData);
+    await User.findByIdAndUpdate(req.body.userId, { expert: "yes" });
 
     res.status(201).json({
       status: "success",

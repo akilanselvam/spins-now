@@ -15,10 +15,7 @@ const createSendToken = (user, statusCode, res) => {
     expires: new Date(Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000),
     httpOnly: true
   };
-  console.log("cookieOptions");
-  console.log(user);
   //res.cookie("jwt", token, cookieOptions);
-  console.log("cookieOptions1");
   user.password = undefined;
   res.status(statusCode).json({
     status: "success",
@@ -52,9 +49,13 @@ exports.login = catchAsync(async (req, res, next) => {
     return next(new AppError("Incorrect email or password, 401"));
   }
   const token = jwtToken(user._id);
+  const username = user.username;
+  const expert = user.expert;
   res.status(200).json({
     status: "success",
-    token
+    token,
+    username,
+    expert
   });
 });
 
@@ -78,6 +79,39 @@ exports.protect = catchAsync(async (req, res, next) => {
     return next(new AppError("User recently changed password! Please log in again.", 401));
   }
   req.user = freshUser;
+
+  next();
+});
+
+exports.expertProtect = catchAsync(async (req, res, next) => {
+  let token;
+  if (req.headers.authorization && req.headers.authorization.startsWith("Bearer")) {
+    token = req.headers.authorization.split(" ")[1];
+  }
+  console.log(token);
+  if (!token) {
+    console.log("token");
+    return next(new AppError("You are not logged in! Please log in to get access", 401));
+  }
+  const decoded = await promisify(jwt.verify)(token, process.env.JWT_SECRET);
+
+  const freshUser = await User.findById(decoded.id);
+  if (!freshUser) {
+    return next(new AppError("The user belonging to this token does no longer exist.", 401));
+  }
+  if (freshUser.changedPasswordAfter(decoded.iat)) {
+    return next(new AppError("User recently changed password! Please log in again.", 401));
+  }
+
+  // Check if the user is an expert
+  if (freshUser.expert !== "yes") {
+    return next(new AppError("Access denied. You are not authorized to access this resource.", 403));
+  }
+
+  req.user = {
+    ...freshUser.toObject(),
+    isExpert: true
+  };
 
   next();
 });
