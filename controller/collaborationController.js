@@ -78,6 +78,31 @@ exports.getSingleCollaboration = async (req, res) => {
   }
 };
 
+exports.getCollaborationsByProblemId = async (req, res) => {
+  try {
+    const page = parseInt(req.query.page) || 1; // Get page from query params or default to 1
+    const perPage = 3; // Number of collaborations per page
+    const skip = (page - 1) * perPage;
+
+    const collaborations = await Collaboration.find({ problemId: req.params.problemId })
+      .sort({ createdAt: -1 })
+      .skip(skip)
+      .limit(perPage);
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        collaborations
+      }
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Failure",
+      message: err.message
+    });
+  }
+};
+
 exports.getLatestTenCollaboration = async (req, res) => {
   try {
     const collaboration = await Collaboration.find().sort({ createdAt: -1 }).limit(10);

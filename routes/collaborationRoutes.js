@@ -3,6 +3,9 @@ const collaborationsRouter = express.Router();
 const collaborationController = require("../controller/collaborationController.js");
 
 collaborationsRouter.route("/latestTen").get(collaborationController.getLatestTenCollaboration);
+collaborationsRouter
+  .route("/getCollaborationsByProblemId/:problemId")
+  .get(collaborationController.getCollaborationsByProblemId);
 
 collaborationsRouter
   .route("/:id")
