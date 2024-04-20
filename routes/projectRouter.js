@@ -3,6 +3,7 @@ const projectsRouter = express.Router();
 const projectController = require("../controller/projectController.js");
 
 projectsRouter.route("/LatestTenProject").get(projectController.getLatestTenProject);
+projectsRouter.route("/getRandomSuggestedProjects").get(projectController.getRandomSuggestedProjects);
 
 projectsRouter
   .route("/:id")

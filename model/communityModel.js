@@ -11,11 +11,10 @@ const communitySchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    required: true
+    default: Date.now
   },
   location: {
-    type: String,
-    required: true
+    type: String
   },
   neededExpertise: {
     type: String,
