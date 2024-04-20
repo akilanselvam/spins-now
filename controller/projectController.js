@@ -1,8 +1,32 @@
 const Project = require("../model/projectModel.js");
-
+const mongoose = require("mongoose");
 exports.getAllProjects = async (req, res) => {
   try {
     const projects = await Project.find();
+    res.status(200).json({
+      status: "success",
+      requestedAT: req.requesttime,
+      results: projects.length,
+      data: {
+        projects
+      }
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "Failure",
+      message: err.message
+    });
+  }
+};
+
+exports.getRandomSuggestedProjects = async (req, res) => {
+  try {
+    const excludedProjectId = "662382e8eaf5f71098af148b";
+
+    const projects = await Project.aggregate([
+      { $match: { _id: { $ne: mongoose.Types.ObjectId(excludedProjectId) } } }, // Exclude project with specific ID
+      { $sample: { size: 3 } } // Retrieve three random documents
+    ]);
     res.status(200).json({
       status: "success",
       requestedAT: req.requesttime,

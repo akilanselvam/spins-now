@@ -39,10 +39,27 @@ exports.postAllProblems = async (req, res) => {
 
 exports.getLatestTenProblem = async (req, res) => {
   try {
-    const problems = await Problem.find()
-      .sort({ createdAt: -1 })
-      .limit(10)
-      .select("title description category urgency impactPotential status submittedBy createdAt");
+    const page = parseInt(req.query.page) || 1; // Get page from query params or default to 1
+    const perPage = 5; // Number of problems per page
+    const skip = (page - 1) * perPage;
+
+    const problems = await Problem.aggregate([
+      { $skip: skip }, // Skip documents based on the page number
+      { $limit: perPage }, // Limit the number of documents per page
+      {
+        $project: {
+          title: 1,
+          description: 1,
+          category: 1,
+          urgency: 1,
+          impactPotential: 1,
+          status: 1,
+          submittedBy: 1,
+          createdAt: 1
+        }
+      }
+    ]);
+
     res.status(200).json({
       status: "success",
       data: {
@@ -105,6 +122,28 @@ exports.deleteProblem = async (req, res) => {
     res.status(400).json({
       status: "Failure",
       message: err
+    });
+  }
+};
+
+exports.searchProblems = async (req, res) => {
+  try {
+    const searchQuery = req.query.search;
+    const regex = new RegExp(searchQuery, "i"); // Case-insensitive regex search
+
+    let problems = await Problem.find({ title: regex }).limit(3);
+
+    res.status(200).json({
+      status: "success",
+      results: problems.length,
+      data: {
+        problems
+      }
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failure",
+      message: error.message
     });
   }
 };
