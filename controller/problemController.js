@@ -20,6 +20,72 @@ exports.getAllProblems = async (req, res) => {
   }
 };
 
+exports.getProblemsByCommunityId = async (req, res) => {
+  try {
+    const communityId = req.params.communityId;
+    const page = parseInt(req.query.page) || 1; // Get page from query params or default to 1
+    const perPage = 3; // Number of problems per page
+
+    const problems = await Problem.find({ communityId })
+      .sort({ createdAt: -1 }) // Sort in descending order of createdAt
+      .skip((page - 1) * perPage)
+      .limit(perPage);
+
+    if (problems.length === 0 && page !== 1) {
+      // If there are no problems on a page other than the first page
+      return res.status(200).json({
+        status: "success",
+        message: "No more problems for the given community ID"
+      });
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        problems
+      }
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "failure",
+      message: err.message
+    });
+  }
+};
+
+exports.getProblemsBySubmittedId = async (req, res) => {
+  try {
+    const submittedId = req.params.submittedId;
+    const page = parseInt(req.query.page) || 1; // Get page from query params or default to 1
+    const perPage = 6; // Number of problems per page
+
+    const problems = await Problem.find({ submittedBy: submittedId })
+      .sort({ createdAt: -1 }) // Sort in descending order of createdAt
+      .skip((page - 1) * perPage)
+      .limit(perPage);
+
+    if (problems.length === 0 && page !== 1) {
+      // If there are no problems on a page other than the first page
+      return res.status(200).json({
+        status: "success",
+        message: "No more problems submitted by the given ID"
+      });
+    }
+
+    res.status(200).json({
+      status: "success",
+      data: {
+        problems
+      }
+    });
+  } catch (err) {
+    res.status(400).json({
+      status: "failure",
+      message: err.message
+    });
+  }
+};
+
 exports.postAllProblems = async (req, res) => {
   try {
     const newProblems = await Problem.create(req.body);

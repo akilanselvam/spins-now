@@ -55,17 +55,27 @@ exports.getSingleCommunity = async (req, res) => {
 
 exports.getCommunityByProjectId = async (req, res) => {
   try {
-    const community = await Community.find({ projectId: req.params.projectId });
-    if (!community) {
-      return res.status(404).json({
-        status: "failure",
-        message: "Community not found for the given project ID"
+    const projectId = req.params.projectId;
+    const page = parseInt(req.query.page) || 1; // Get page from query params or default to 1
+    const perPage = 3; // Number of communities per page
+
+    const communities = await Community.find({ projectId })
+      .sort({ createdAt: -1 })
+      .skip((page - 1) * perPage)
+      .limit(perPage);
+
+    if (communities.length === 0 && page !== 1) {
+      // If there are no communities on a page other than the first page
+      return res.status(200).json({
+        status: "success",
+        message: "No more communities for the given project ID"
       });
     }
+
     res.status(200).json({
       status: "success",
       data: {
-        community
+        communities
       }
     });
   } catch (err) {

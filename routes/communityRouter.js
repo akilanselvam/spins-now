@@ -7,7 +7,7 @@ communitiesRouter.route("/latestTen").get(communityController.getLatestTenCommun
 communitiesRouter.route("/getbyProject/:projectId").get(communityController.getCommunityByProjectId);
 communitiesRouter
   .route("/:id")
-  .get(authController.protect, communityController.getSingleCommunity)
+  .get(communityController.getSingleCommunity)
   .patch(communityController.updateCommunity)
   .delete(communityController.deleteCommunity);
 
