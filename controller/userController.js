@@ -105,3 +105,29 @@ exports.deleteUser = async (req, res) => {
     });
   }
 };
+
+exports.searchUsers = async (req, res) => {
+  try {
+    const searchQuery = req.query.search;
+    const regex = new RegExp(`.*${searchQuery}.*`, "i");
+
+    const results = await User.aggregate([
+      { $match: { $or: [{ username: regex }, { firstName: regex }, { lastName: regex }] } },
+      { $limit: 3 },
+      { $project: { _id: 1, username: 1, firstName: 1, lastName: 1, type: "User" } }
+    ]);
+
+    res.status(200).json({
+      status: "success",
+      results: results.length,
+      data: {
+        results: results
+      }
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: "failure",
+      message: error.message
+    });
+  }
+};

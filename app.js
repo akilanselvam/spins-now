@@ -10,6 +10,8 @@ const feedbackRouter = require("./routes/feedbackRouter.js");
 const projectRouter = require("./routes/projectRouter.js");
 const resourceRouter = require("./routes/resourceRouter.js");
 const userRouter = require("./routes/userRouter.js");
+const chatRouter = require("./routes/chatRouter.js");
+const messageRouter = require("./routes/messageRouter.js");
 const globalErrorHandler = require("./util/errorController.js");
 var cors = require("cors");
 
@@ -40,6 +42,8 @@ app.use("/api/v1/feedback", feedbackRouter);
 app.use("/api/v1/project", projectRouter);
 app.use("/api/v1/resource", resourceRouter);
 app.use("/api/v1/user", userRouter);
+app.use("/api/v1/chat", chatRouter);
+app.use("/api/v1/message", messageRouter);
 
 app.all("*", (req, res, next) => {
   res.status(404).json({
