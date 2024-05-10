@@ -53,6 +53,10 @@ const userSchema = new mongoose.Schema({
     type: Date,
     select: true
   },
+  profilePicture: {
+    type: String,
+    default: "" // Default value is an empty string
+  },
   expert: {
     type: String,
     enum: ["yes", "no"],

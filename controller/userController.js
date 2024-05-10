@@ -1,4 +1,5 @@
 const User = require("../model/userModel.js");
+const avatarInitials = require("avatar-initials");
 
 exports.getAllUsers = async (req, res) => {
   try {
@@ -21,6 +22,14 @@ exports.getAllUsers = async (req, res) => {
 
 exports.createUser = async (req, res) => {
   try {
+    // Generate avatar based on gender
+    const gender = req.body.sex || "unknown"; // Assuming 'sex' field denotes gender
+    const initials = req.body.firstName.charAt(0) + req.body.lastName.charAt(0); // Initials for the avatar
+    const avatarSVG = avatarInitials.create({ initials, gender });
+
+    // Add avatar to user object
+    req.body.profilePicture = avatarSVG;
+
     const newUser = await User.create(req.body);
     res.status(201).json({
       status: "success",
